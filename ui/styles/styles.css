@@ -1,0 +1,221 @@
+BODY {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+#normal-view {
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  width: 100%;
+}
+
+#normal-view.hidden {
+  display: none;
+}
+
+#normal-view .header {
+  display: flex;
+  background-color: #282C34;
+  color: #eeeeee;
+  text-shadow: 1px 1px 4px #000;
+  justify-content: space-between;
+}
+
+#normal-view .logo {
+  display: flex;
+  align-items: center;
+}
+
+#normal-view .logo img {
+  width: 300px;
+  height: 300px;
+  margin: -30px;
+}
+
+#normal-view .logo span {
+  font-size: 100px;
+}
+
+#normal-view .clock {
+  padding: 20px;
+  text-align: center;
+  display: block;
+}
+
+#normal-view .clock .time {
+  font-size: 100px;
+}
+
+#clock-hours, #clock-minutes, #clock-seconds, #minutes-since-alarm, #seconds-since-alarm {
+  display: inline-block;
+  width: 120px;
+}
+
+#normal-view .clock .time .separator, #time-since-alarm .separator {
+  display: inline-block;
+  animation-name: flashing-separators;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  padding-right: 3px;
+}
+
+@keyframes flashing-separators {
+  0% { opacity: 0.0; }
+  50% { opacity: 1.0; }
+  100% { opacity: 0.0; }
+}
+
+#clock-date {
+  font-size: 40px;
+  color: #cccccc;
+}
+
+#alarm-view {
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  width: 100%;
+  background-color: #282C34;
+  color: #eeeeee;
+  text-shadow: 1px 1px 4px #000;
+}
+
+#alarm-view.hidden {
+  display: none;
+}
+
+#alarm-view .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#alarm-view .location {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 60px;
+}
+
+#alarm-code {
+  font-size: 100px;
+  padding: 20px;
+}
+
+#alarm-text {
+  font-size: 50px;
+  align-self: center;
+}
+
+#time-since-alarm {
+  font-size: 100px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+#time-since-alarm.warning {
+  animation-name: time-since-alarm-warning;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+}
+
+@keyframes time-since-alarm-warning {
+  0% { color: inherit; }
+  50% { color: yellow; }
+  100% { color: inherit; }
+}
+
+#time-since-alarm.critical {
+  animation-name: time-since-alarm-critical;
+  animation-iteration-count: infinite;
+  animation-duration: 0.5s;
+}
+
+@keyframes time-since-alarm-critical {
+  0% { background-color: yellow; }
+  50% { background-color: inherit; }
+  100% { background-color: yellow; }
+}
+
+#municipality {
+  padding: 20px;
+}
+
+#address {
+  padding: 20px;
+  color: #f28d07;
+}
+
+#message {
+  font-size: 40px;
+  padding: 20px;
+}
+
+#message .our-unit {
+  background-color: #f28d07;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#reset {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid #f28d07;
+  background-color: transparent;
+  color: #eeeeee;
+  font-size: 14px;
+  text-shadow: 1px 1px 4px #000;
+}
+
+#reset:hover {
+  background-color: #f28d07;
+  cursor: pointer;
+}
+
+/* Classes */
+
+#alarm-view.preparedness .header {
+  background-color: #999999;
+}
+
+#alarm-view.other .header {
+  background-color: #ec31f0;
+}
+
+#alarm-view.fire .header {
+  background-color: #ff3600;
+}
+
+#alarm-view.water .header {
+  background-color: #0085ff;
+}
+
+#alarm-view.traffic .header {
+  background-color: #6faf0d;
+}
+
+#alarm-view.automatic .header {
+  background-color: #63afa4;
+}
+
+#alarm-view.explosion .header {
+  background-color: #6f02db;
+}
+
+#alarm-view.hazmat .header {
+  background-color: #becc20;
+}
+
+#alarm-view.salvage .header {
+  background-color: #a0bb8e;
+}
+
+#alarm-view.environment .header {
+  background-color: #014452;
+}
+
+#alarm-view.rescue .header {
+  background-color: #ff9100;
+}
