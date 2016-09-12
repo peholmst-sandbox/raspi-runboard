@@ -1,0 +1,294 @@
+{
+  "050": {
+    "text": "Bombhot",
+    "class": "other"
+  },
+  "351": {
+    "text": "Stationsberedskap",
+    "class": "preparedness"
+  },
+  "352": {
+    "text": "Beredskapsförflyttning",
+    "class": "preparedness"
+  },
+  "103": {
+    "text": "Automatiskt brandlarm",
+    "class": "automatic"
+  },
+  "200": {
+    "text": "Vägtrafikolycka: annan eller fara för olycka",
+    "class": "traffic"
+  },
+  "202": {
+    "text": "Vägtrafikolycka: liten",
+    "class": "traffic"
+  },
+  "203": {
+    "text": "Vägtrafikolycka: medelstor",
+    "class": "traffic"
+  },
+  "204": {
+    "text": "Vägtrafikolycka: stor",
+    "class": "traffic"
+  },
+  "206": {
+    "text": "Vägtrafikolycka under jord: liten",
+    "class": "traffic"
+  },
+  "207": {
+    "text": "Vägtrafikolycka under jord: medelstor",
+    "class": "traffic"
+  },
+  "208": {
+    "text": "Vägtrafikolycka under jord: stor",
+    "class": "traffic"
+  },
+  "212": {
+    "text": "Rälstrafikolycka: liten",
+    "class": "traffic"
+  },
+  "213": {
+    "text": "Rälstrafikolycka: medelstor",
+    "class": "traffic"
+  },
+  "214": {
+    "text": "Rälstrafikolycka: stor",
+    "class": "traffic"
+  },
+  "215": {
+    "text": "Rälstrafikolycka: djur, inga personskador",
+    "class": "traffic"
+  },
+  "216": {
+    "text": "Rälstrafikolycka under jord: liten",
+    "class": "traffic"
+  },
+  "217": {
+    "text": "Rälstrafikolycka under jord: medelstor",
+    "class": "traffic"
+  },
+  "218": {
+    "text": "Rälstrafikolycka under jord: stor",
+    "class": "traffic"
+  },
+  "220": {
+    "text": "Sjötrafikolycka: annan",
+    "class": "water"
+  },
+  "221": {
+    "text": "Sjötrafikolycka: liten",
+    "class": "water"
+  },
+  "222": {
+    "text": "Sjötrafikolycka: medelstor",
+    "class": "water"
+  },
+  "223": {
+    "text": "Sjötrafikolycka: stor",
+    "class": "water"
+  },
+  "231": {
+    "text": "Flygtrafikolycka: liten",
+    "class": "traffic"
+  },
+  "232": {
+    "text": "Flygtrafikolycka: medelstor",
+    "class": "traffic"
+  },
+  "233": {
+    "text": "Flygtrafikolycka: stor",
+    "class": "traffic"
+  },
+  "234": {
+    "text": "Fara för flygtrafikolycka: liten",
+    "class": "traffic"
+  },
+  "235": {
+    "text": "Fara för flygtrafikolycka: medelstor",
+    "class": "traffic"
+  },
+  "236": {
+    "text": "Fara för flygtrafikolycka: stor",
+    "class": "traffic"
+  },
+  "271": {
+    "text": "Terrängtrafikolycka",
+    "class": "traffic"
+  },
+  "401": {
+    "text": "Byggnadsbrand: liten",
+    "class": "fire"
+  },
+  "402": {
+    "text": "Byggnadsbrand: medelstor",
+    "class": "fire"
+  },
+  "403": {
+    "text": "Byggnadsbrand: stor",
+    "class": "fire"
+  },
+  "411": {
+    "text": "Fordonsbrand: liten",
+    "class": "fire"
+  },
+  "412": {
+    "text": "Fordonsbrand: medelstor",
+    "class": "fire"
+  },
+  "413": {
+    "text": "Fordonsbrand: stor",
+    "class": "fire"
+  },
+  "421": {
+    "text": "Terrängbrand: liten",
+    "class": "fire"
+  },
+  "422": {
+    "text": "Terrängbrand: medelstor",
+    "class": "fire"
+  },
+  "423": {
+    "text": "Terrängbrand: stor",
+    "class": "fire"
+  },
+  "431": {
+    "text": "Annan brand: liten",
+    "class": "fire"
+  },
+  "432": {
+    "text": "Annan brand: medelstor",
+    "class": "fire"
+  },
+  "433": {
+    "text": "Annan brand: stor",
+    "class": "fire"
+  },
+  "441": {
+    "text": "Explosion/ras: liten",
+    "class": "explosion"
+  },
+  "442": {
+    "text": "Explosion/ras: medelstor",
+    "class": "explosion"
+  },
+  "443": {
+    "text": "Explosion/ras: stor",
+    "class": "explosion"
+  },
+  "444": {
+    "text": "Explosionsfara",
+    "class": "explosion"
+  },
+  "451": {
+    "text": "Olycka med farliga varor: liten",
+    "class": "hazmat"
+  },
+  "452": {
+    "text": "Olycka med farliga varor: medelstor",
+    "class": "hazmat"
+  },
+  "453": {
+    "text": "Olycka med farliga varor: stor",
+    "class": "hazmat"
+  },
+  "455": {
+    "text": "Fara för olycka med farliga varor",
+    "class": "hazmat"
+  },
+  "461": {
+    "text": "Skadebekämpning: liten",
+    "class": "salvage"
+  },
+  "462": {
+    "text": "Skadebekämpning: medelstor",
+    "class": "salvage"
+  },
+  "463": {
+    "text": "Skadebekämpning: stor",
+    "class": "salvage"
+  },
+  "471": {
+    "text": "Oljeskada/miljöolycka på land: liten",
+    "class": "environment"
+  },
+  "472": {
+    "text": "Oljeskada/miljöolycka på land: medelstor",
+    "class": "environment"
+  },
+  "473": {
+    "text": "Oljeskada/miljöolycka på land: stor",
+    "class": "environment"
+  },
+  "474": {
+    "text": "Oljeskada/miljöolycka i vattendrag: liten",
+    "class": "environment"
+  },
+  "475": {
+    "text": "Oljeskada/miljöolycka i vattendrag: medelstor",
+    "class": "environment"
+  },
+  "476": {
+    "text": "Oljeskada/miljöolycka i vattendrag: stor",
+    "class": "environment"
+  },
+  "477": {
+    "text": "Fara för oljeskada/miljöolycka i vattendrag",
+    "class": "environment"
+  },
+  "480": {
+    "text": "Annan räddning av människa",
+    "class": "rescue"
+  },
+  "483": {
+    "text": "Räddning av människa i vatten",
+    "class": "water"
+  },
+  "485": {
+    "text": "Räddning av människa i terräng",
+    "class": "rescue"
+  },
+  "486": {
+    "text": "Räddning av fastklämd människa",
+    "class": "rescue"
+  },
+  "487": {
+    "text": "Räddning av människa uppifrån/nerifrån",
+    "class": "rescue"
+  },
+  "490": {
+    "text": "Alarm under pågående samtal",
+    "class": "other"
+  },
+  "491": {
+    "text": "Olycka under jord: liten",
+    "class": "other"
+  },
+  "492": {
+    "text": "Olycka under jord: medelstor",
+    "class": "other"
+  },
+  "493": {
+    "text": "Olycka under jord: stor",
+    "class": "other"
+  },
+  "550": {
+    "text": "Kontroll eller bekräftelseuppdrag",
+    "class": "other"
+  },
+  "551": {
+    "text": "Tjänstehjälp till annan myndighet",
+    "class": "other"
+  },
+  "552": {
+    "text": "Handräckningsuppdrag",
+    "class": "other"
+  },
+  "553": {
+    "text": "Hot/förhöjd beredskap",
+    "class": "other"
+  },
+  "581": {
+    "text": "Räddning av djur",
+    "class": "other"
+  }
+}

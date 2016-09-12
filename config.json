@@ -1,0 +1,9 @@
+{
+  "thresholds": {
+    "warning": 480,
+    "critical": 570,
+    "reset": 1200
+  },
+  "our_units": ["RVSPG13", "RVSPG31"],
+  "port": 8080
+}
