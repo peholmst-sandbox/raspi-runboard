@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raspberry Pi Runboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css"/>
+  </head>
+  <body>
+    <div id="alarm-view" class="hidden">
+      <div class="header">
+        <div id="alarm-code"></div>
+        <div id="alarm-text"></div>
+        <div id="time-since-alarm">
+          <span id="minutes-since-alarm"></span><span class="separator">:</span><span id="seconds-since-alarm"></span>
+        </div>
+      </div>
+      <div class="location">
+        <div id="municipality"></div>
+        <div id="address"></div>
+      </div>
+      <div id="message"></div>
+      <button id="reset" onclick="showNormalView()">Reset</button>
+    </div>
+
+    <div id="normal-view" class="hidden">
+      <div class="header">
+        <div class="logo">
+          <img src="img/logo.png">
+          <span>Pargas FBK</span>
+        </div>
+        <div class="clock">
+          <div class="time">
+            <span id="clock-hours"></span><span class="separator">:</span><span id="clock-minutes"></span><span class="separator">:</span><span id="clock-seconds"></span>
+          </div>
+          <div id="clock-date"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+
+    var clock = {
+      _id: null,
+
+      start: function() {
+        this.stop();
+        console.log('Starting clock');
+        this._id = setInterval(this._updateUI.bind(this), 200);
+        this._updateUI();
+      },
+
+      stop: function() {
+        if (this._id) {
+          console.log('Stopping clock');
+          clearInterval(this._id);
+          this._id = null;
+        }
+      },
+
+      _updateUI: function() {
+        var now = new Date();
+
+        document.getElementById('clock-hours').innerHTML = formatTimeNumber(now.getHours());
+        document.getElementById('clock-minutes').innerHTML = formatTimeNumber(now.getMinutes());
+        document.getElementById('clock-seconds').innerHTML = formatTimeNumber(now.getSeconds());
+        document.getElementById('clock-date').innerHTML = now.toLocaleDateString('fi');
+      }
+    };
+
+    var timer = {
+      _id: null,
+      _timeSince: null,
+      _criticalLevel: null,
+      _warningLevel: null,
+
+      start: function(timeSince, warningLevel = null, criticalLevel = null) {
+        this.stop();
+        console.log('Starting timer');
+        this._timeSince = timeSince;
+        this._warningLevel = warningLevel;
+        this._criticalLevel = criticalLevel;
+        this._id = setInterval(this._updateUI.bind(this), 500);
+        this._updateUI();
+      },
+
+      stop: function() {
+        if (this._id) {
+          console.log('Stopping timer');
+          clearInterval(this._id);
+          this._id = null;
+        }
+      },
+
+      _updateUI: function() {
+        var now = new Date();
+        var secondsSince = Math.floor((now.getTime() - this._timeSince.getTime()) / 1000);
+        var minutesSince = Math.floor(secondsSince / 60);
+
+        document.getElementById('seconds-since-alarm').innerHTML = formatTimeNumber(secondsSince % 60);
+        document.getElementById('minutes-since-alarm').innerHTML = formatTimeNumber(minutesSince);
+
+        var div = document.getElementById('time-since-alarm')
+        div.className = '';
+        if (this._warningLevel && secondsSince >= this._warningLevel) {
+          console.log('Timer reached warning threshold');
+          div.className = 'warning';
+        }
+        if (this._criticalLevel && secondsSince >= this._criticalLevel) {
+          console.log('Timer reached critical threshold');
+          div.className = 'critical';
+        }
+      }
+    };
+
+    function showAlarmView(alarm) {
+      if (!alarm) {
+        return; // Do nothing
+      }
+      console.log('Showing alarm view');
+      clock.stop();
+      document.getElementById('normal-view').classList.add('hidden');
+      document.getElementById('alarm-view').className = alarm.class || '';
+
+      document.getElementById('alarm-code').innerHTML = alarm.code || '';
+      document.getElementById('alarm-text').innerHTML = alarm.text || '';
+      document.getElementById('municipality').innerHTML = alarm.municipality || '';
+      document.getElementById('address').innerHTML = alarm.address || '';
+
+      var messageDiv = document.getElementById('message')
+      if (alarm.thresholds) {
+        timer.start(new Date(alarm.timestamp) || new Date(), alarm.thresholds.warning, alarm.thresholds.critical);
+        setTimeout(showNormalView, alarm.thresholds.reset * 1000);
+      } else {
+        timer.start(new Date(alarm.timestamp) || new Date());
+        setTimeout(showNormalView, 300000);
+      }
+      var message = alarm.message || '';
+      if (alarm.our_units) {
+        for (var i = 0; i < alarm.our_units.length; i++) {
+          var unit = alarm.our_units[i];
+          message = message.replace(unit, '<span class="our-unit">' + unit + '</span>');
+        }
+      }
+      messageDiv.innerHTML = message;
+    }
+
+    function showNormalView() {
+      console.log('Showing normal view');
+      timer.stop();
+      clock.start();
+      document.getElementById('alarm-view').className = 'hidden';
+      document.getElementById('normal-view').classList.remove('hidden');
+    }
+
+    function formatTimeNumber(n) {
+      if (n < 10) {
+        return '0' + n;
+      } else {
+        return '' + n;
+      }
+    }
+
+    showNormalView();
+
+    var websocket = {
+      _ws: null,
+
+      connect: function() {
+        var location = window.location;
+        var wsUrl = 'ws://' + location.host;
+        console.log('Trying to connect to websocket on ' + wsUrl);
+        this._ws = new WebSocket(wsUrl);
+        this._ws.onopen = this._onOpen.bind(this);
+        this._ws.onmessage = this._onMessage.bind(this);
+        this._ws.onclose = this._onClose.bind(this);
+      },
+
+      _onOpen: function(evt) {
+        console.log('Websocket connection established');
+      },
+
+      _onMessage: function(message) {
+        console.log('Message received over web socket: ' + message.data);
+        showAlarmView(JSON.parse(message.data));
+      },
+
+      _onClose: function() {
+        console.log('Websocket connection lost, retrying in 5 seconds');
+        setTimeout(this.connect.bind(this), 5000);
+      }
+    };
+
+    websocket.connect();
+  </script>
+</html>
