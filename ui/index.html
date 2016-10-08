@@ -72,6 +72,8 @@
       _timeSince: null,
       _criticalLevel: null,
       _warningLevel: null,
+      _criticalReached: false,
+      _warningReached: false,
 
       start: function(timeSince, warningLevel = null, criticalLevel = null) {
         this.stop();
@@ -79,6 +81,8 @@
         this._timeSince = timeSince;
         this._warningLevel = warningLevel;
         this._criticalLevel = criticalLevel;
+        this._ciritalReached = false;
+        this._warningReached = false;
         this._id = setInterval(this._updateUI.bind(this), 500);
         this._updateUI();
       },
@@ -87,6 +91,7 @@
         if (this._id) {
           console.log('Stopping timer');
           clearInterval(this._id);
+          this._stopAnimation();
           this._id = null;
         }
       },
@@ -100,21 +105,71 @@
         document.getElementById('minutes-since-alarm').innerHTML = formatTimeNumber(minutesSince);
 
         var div = document.getElementById('time-since-alarm')
-        div.className = '';
-        if (this._warningLevel && secondsSince >= this._warningLevel) {
-          console.log('Timer reached warning threshold');
-          div.className = 'warning';
-        }
-        if (this._criticalLevel && secondsSince >= this._criticalLevel) {
+        if (this._criticalLevel && secondsSince >= this._criticalLevel && !this._criticalReached) {
           console.log('Timer reached critical threshold');
           div.className = 'critical';
+          this._startAnimation();
+          this._criticalReached = true;
+        } else if (this._warningLevel && secondsSince >= this._warningLevel && !this._warningReached) {
+          console.log('Timer reached warning threshold');
+          div.className = 'warning';
+          this._startAnimation();
+          this._warningReached = true;
+        } else if (!this._warningReached && !this._criticalReached && div.className != '') {
+          div.className = '';
+        }
+      },
+
+      /*
+       * Because of an apparent memory leak when using CSS animations in Chromium on the Raspberry Pi,
+       * we have to do the animations manually.
+       */
+
+      _animationFrameId: null,
+      _animationLastUpdate: null,
+
+      _animateTimeSinceAlarm: function(timestamp) {
+        if (!this._animationLastUpdate) {
+          this._animationLastUpdate = timestamp;
+        }
+        var progress = timestamp - this._animationLastUpdate;
+        if (progress >= 400) {
+          var div = document.getElementById('time-since-alarm')
+          if (div.classList.contains('blink')) {
+            div.classList.remove('blink');
+          } else {
+            div.classList.add('blink');
+          }
+          this._animationLastUpdate = timestamp;
+        }
+        this._animationFrameId = window.requestAnimationFrame(this._animateTimeSinceAlarm.bind(this));
+      },
+
+      _startAnimation: function() {
+        if (!this._animationFrameId) {
+          console.log('Starting animation');
+          this._animationFrameId = window.requestAnimationFrame(this._animateTimeSinceAlarm.bind(this));
+        }
+      },
+
+      _stopAnimation: function() {
+        if (this._animationFrameId) {
+          console.log('Cancelling animation');
+          window.cancelAnimationFrame(this._animationFrameId);
+          this._animationFrameId = null;
         }
       }
     };
 
+    var showNormalViewTimeout = null;
+
     function showAlarmView(alarm) {
       if (!alarm) {
         return; // Do nothing
+      }
+      if (showNormalViewTimeout) {
+        console.log('Canceling timeout for returning to normal view');
+        clearTimeout(showNormalViewTimeout);
       }
       console.log('Showing alarm view');
       clock.stop();
@@ -129,10 +184,10 @@
       var messageDiv = document.getElementById('message')
       if (alarm.thresholds) {
         timer.start(new Date(alarm.timestamp) || new Date(), alarm.thresholds.warning, alarm.thresholds.critical);
-        setTimeout(showNormalView, alarm.thresholds.reset * 1000);
+        showNormalViewTimeout = setTimeout(showNormalView, alarm.thresholds.reset * 1000);
       } else {
         timer.start(new Date(alarm.timestamp) || new Date());
-        setTimeout(showNormalView, 300000);
+        showNormalViewTimeout = setTimeout(showNormalView, 300000);
       }
       var message = alarm.message || '';
       if (alarm.our_units) {
@@ -147,6 +202,7 @@
     function showNormalView() {
       console.log('Showing normal view');
       timer.stop();
+      showNormalViewTimeout = null;
       clock.start();
       document.getElementById('alarm-view').className = 'hidden';
       document.getElementById('normal-view').classList.remove('hidden');

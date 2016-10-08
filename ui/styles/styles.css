@@ -54,16 +54,7 @@ BODY {
 
 #normal-view .clock .time .separator, #time-since-alarm .separator {
   display: inline-block;
-  animation-name: flashing-separators;
-  animation-iteration-count: infinite;
-  animation-duration: 1s;
   padding-right: 3px;
-}
-
-@keyframes flashing-separators {
-  0% { opacity: 0.0; }
-  50% { opacity: 1.0; }
-  100% { opacity: 0.0; }
 }
 
 #clock-date {
@@ -115,27 +106,17 @@ BODY {
 }
 
 #time-since-alarm.warning {
-  animation-name: time-since-alarm-warning;
-  animation-iteration-count: infinite;
-  animation-duration: 1s;
+  border: 2px solid yellow;
+  padding: 8px;
 }
 
-@keyframes time-since-alarm-warning {
-  0% { color: inherit; }
-  50% { color: yellow; }
-  100% { color: inherit; }
+#time-since-alarm.warning.blink {
+  color: yellow;
 }
 
-#time-since-alarm.critical {
-  animation-name: time-since-alarm-critical;
-  animation-iteration-count: infinite;
-  animation-duration: 0.5s;
-}
-
-@keyframes time-since-alarm-critical {
-  0% { background-color: yellow; }
-  50% { background-color: inherit; }
-  100% { background-color: yellow; }
+#time-since-alarm.critical.blink {
+  background-color: yellow;
+  color: #282C34;
 }
 
 #municipality {
