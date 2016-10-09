@@ -111,6 +111,13 @@ BODY {
 }
 
 #time-since-alarm.warning.blink {
+  border: none;
+  padding: 10px;
+  color: yellow;
+}
+
+#time-since-alarm.critical {
+  background-color: #282C34;
   color: yellow;
 }
 

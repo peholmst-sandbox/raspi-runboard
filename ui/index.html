@@ -81,7 +81,7 @@
         this._timeSince = timeSince;
         this._warningLevel = warningLevel;
         this._criticalLevel = criticalLevel;
-        this._ciritalReached = false;
+        this._criticalReached = false;
         this._warningReached = false;
         this._id = setInterval(this._updateUI.bind(this), 500);
         this._updateUI();
@@ -93,6 +93,7 @@
           clearInterval(this._id);
           this._stopAnimation();
           this._id = null;
+          document.getElementById('time-since-alarm').className = '';
         }
       },
 
@@ -115,8 +116,6 @@
           div.className = 'warning';
           this._startAnimation();
           this._warningReached = true;
-        } else if (!this._warningReached && !this._criticalReached && div.className != '') {
-          div.className = '';
         }
       },
 
