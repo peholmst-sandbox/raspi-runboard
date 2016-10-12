@@ -215,6 +215,17 @@
       }
     }
 
+    function runGarbageCollection() {
+      if (window.gc) {
+        console.log('Running garbage collector');
+        window.gc();
+      }
+    }
+	
+    if (window.gc) {
+      setInterval(runGarbageCollection, 60000);
+    }
+
     showNormalView();
 
     var websocket = {
