@@ -1,9 +1,13 @@
 {
-  "thresholds": {
-    "warning": 480,
-    "critical": 570,
-    "reset": 1200
-  },
-  "our_units": ["RVSPG13", "RVSPG31"],
-  "port": 8080
+    "thresholds": {
+	"warning": 480,
+	"critical": 570,
+	"reset": 1200
+    },
+    "our_units": ["RVSPG13", "RVSPG31"],
+    "port": 8080,
+    "sms": {
+	"regex": "^TKU ([A-Za-z\\s]*[0-9]+[ABCD\\s]+),([^,]*,[^,]*),([^,]*,[^,]*,[^,]*),(.*)",
+	"regex_groups": ["code", "municipality", "address", "message"]
+    }
 }
